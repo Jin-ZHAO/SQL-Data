@@ -1,0 +1,15 @@
+# 03-Nov-2021 「SQL取埋点的pv/uv数据」
+# 笔记：% 表示多个字值，_ 下划线表示一个字符； M% : 为能配符，正则表达式，表示的意思为模糊查询信息为 M 开头的。%M% : 表示查询包含M的所有内容。%M_ : 表示查询以M在倒数第二位的所有内容。
+# 来源：https://www.runoob.com/sql/sql-where.html
+################################################################################
+select
+  count(1) as pv
+  count(DISTINCT user_id) as uv 
+from
+  ods_flow.ods_flow_v3_tmp_ph
+where
+  p_date = '${yesterday}'
+  and view_web_url like 'https://www.zhihu.com/unregister%'
+  and view_web_url like '%step=agreement%'
+  and p_logtype = 'show'
+  and element_type = 'Page'
